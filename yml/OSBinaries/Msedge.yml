@@ -27,6 +27,13 @@ Commands:
     OperatingSystem: Windows 10, Windows 11
     Tags:
       - Execute: CMD
+  - Command: msedge.exe --headless --remote-debugging-port=9222 --user-data-dir="%LOCALAPPDATA%\Microsoft\Edge\User Data"
+    Description: Edge launches in headless mode with remote debugging enabled, exposing the DevTools Protocol on port 9222. A local process can then connect to dump session cookies from the user's profile. This technique has been observed persisted via an "mseupdate" logon scheduled task in trojanized Claude installer packages that exfiltrated cookies to attacker infrastructure.
+    Usecase: Steal web session cookies via DevTools Protocol
+    Category: Credentials
+    Privileges: User
+    MitreID: T1539
+    OperatingSystem: Windows 10, Windows 11
 Full_Path:
   - Path: c:\Program Files\Microsoft\Edge\Application\msedge.exe
   - Path: c:\Program Files (x86)\Microsoft\Edge\Application\msedge.exe
@@ -36,6 +43,9 @@ Detection:
 Resources:
   - Link: https://twitter.com/mrd0x/status/1478116126005641220
   - Link: https://twitter.com/mrd0x/status/1478234484881436672
+  - Link: https://any.run/cybersecurity-blog/fake-ai-tools-us-companies/
 Acknowledgement:
   - Person: mr.d0x
     Handle: '@mrd0x'
+  - Person: ANY.RUN
+    Handle: '@anyrun_app'
