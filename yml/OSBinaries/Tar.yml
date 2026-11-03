@@ -31,6 +31,15 @@ Commands:
     OperatingSystem: Windows 10, Windows 11
     Tags:
       - Type: Compression
+  - Command: tar -xf {PATH:.tar} -C {PATH_ABSOLUTE:folder}
+    Description: Extracts a local archive into a chosen folder, such as a folder under ProgramData.
+    Usecase: Unpack a payload bundle, for example a full Python runtime, from an archive dropped by an installer or script without third-party extraction tools. Seen in a trojanized RVTools installer that uses tar.exe to unpack a Python runtime into ProgramData.
+    Category: Decode
+    Privileges: User
+    MitreID: T1140
+    OperatingSystem: Windows 10, Windows 11
+    Tags:
+      - Type: Compression
 Full_Path:
   - Path: C:\Windows\System32\tar.exe
   - Path: C:\Windows\SysWOW64\tar.exe
@@ -42,7 +51,10 @@ Detection:
   - IOC: tar.exe interacting with alternate data streams (ADS)
 Resources:
   - Link: https://twitter.com/Cyber_Sorcery/status/1619819249886969856
+  - Link: https://vega.io/blog/trojanized-rvtools-python-stager-linked-to-unc2465
 Acknowledgement:
   - Person: Brian Lucero
     Handle: '@Cyber_Sorcery'
   - Person: Avester Fahimipour
+  - Person: Vega Threat Research
+    Handle: '@Vega_Threat'
