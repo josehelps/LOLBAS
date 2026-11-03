@@ -31,6 +31,24 @@ Commands:
     OperatingSystem: Windows 10 1803, Windows 10, Windows 11
     Tags:
       - Execute: EXE
+  - Command: schtasks /create /f /tn "{TASKNAME}" /tr "{CMD}" /sc once /st 00:00 /ru SYSTEM
+    Description: Create a one-time scheduled task that runs as SYSTEM at the given start time. Scripts commonly pick a start time a few minutes after the current time.
+    Usecase: Launch a payload one time with SYSTEM privileges, for example right after an installer drops it. Seen in a trojanized RVTools installer that starts a renamed Python interpreter through a task named LanguagePack.
+    Category: Execute
+    Privileges: Administrator
+    MitreID: T1053.005
+    OperatingSystem: Windows 7, Windows 8, Windows 8.1, Windows 10, Windows 11
+    Tags:
+      - Execute: CMD
+  - Command: schtasks /create /f /tn "{TASKNAME}" /tr "{CMD}" /sc onlogon
+    Description: Create a scheduled task that runs every time a user logs on.
+    Usecase: Persist a payload across reboots and logons without a Run key. Seen in a trojanized RVTools installer that uses a task named SecurityHealth to start a renamed Python interpreter at every logon.
+    Category: Execute
+    Privileges: Administrator
+    MitreID: T1053.005
+    OperatingSystem: Windows 7, Windows 8, Windows 8.1, Windows 10, Windows 11
+    Tags:
+      - Execute: CMD
 Full_Path:
   - Path: c:\windows\system32\schtasks.exe
   - Path: c:\windows\syswow64\schtasks.exe
@@ -42,6 +60,9 @@ Detection:
 Resources:
   - Link: https://isc.sans.edu/forums/diary/Adding+Persistence+Via+Scheduled+Tasks/23633/
   - Link: https://blog.midnightshift.dev/posts/fake-op-auto-clicker-clickfix/
+  - Link: https://vega.io/blog/trojanized-rvtools-python-stager-linked-to-unc2465
 Acknowledgement:
   - Person: Ariya
     Handle: '@mnshiftdev'
+  - Person: Vega Threat Research
+    Handle: '@Vega_Threat'
